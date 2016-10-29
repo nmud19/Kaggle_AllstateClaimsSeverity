@@ -1,4 +1,7 @@
 
+#converted to log for cont7
+
+from datetime import datetime
 import pandas as pd
 import numpy as np
 import xgboost as xgb
@@ -44,7 +47,9 @@ if __name__ == '__main__':
     #Build model off top 20 important features
     #imp_feat_names = ['cont14', 'cont7', 'cont6', 'cat100', 'cont1', 'cont8', 'cat112', 'cont4', 'cont13', 'cont11', 'cont2', 'cont5', 'cont3', 'cont9', 'cont10', 'cont12', 'cat113', 'cat110', 'cat116', 'cat101']
     train['cont14'] =  np.sqrt(train['cont14'])/np.log(train['cont14']) 
-    test['cont14'] =  np.sqrt(test['cont14'])/np.log(test['cont14']) 
+    test['cont14'] =  np.sqrt(test['cont14'])/np.log(test['cont14'])
+    train['cont7'] = np.log(train['cont7'])
+    test['cont7'] = np.log(test['cont7'])
     
     X = train.drop(['loss', 'id'], 1)
     X_test = test.drop(['loss', 'id'], 1)
@@ -73,7 +78,7 @@ if __name__ == '__main__':
     submission = pd.DataFrame()
     submission['id'] = ids
     submission['loss'] = prediction
-    submission.to_csv('D:\\Kaggle\\AllState\\Output\\sub_1114LB_ver2.csv', index=False)
+    submission.to_csv('D:\\Kaggle\\AllState\\Output\\sub_' + str(datetime.date(datetime.now())) + '.csv', index=False)
 
 
 
